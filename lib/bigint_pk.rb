@@ -31,12 +31,6 @@ module BigintPk
   end
 
   def self.install_primary_key_patches!
-    ca = ActiveRecord::ConnectionAdapters
-    ActiveRecord::Base.establish_connection
-    ca::PostgreSQLAdapter::NATIVE_DATABASE_TYPES[:primary_key] = 'bigserial primary key'
-  end
-
-  def self.install_primary_key_patches!
     ActiveRecord::Base.establish_connection
     ca = ActiveRecord::ConnectionAdapters
 
