@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  database: test_rails_app
+  username: postgres
+  password: 
+  host: localhost
