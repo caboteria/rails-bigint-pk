@@ -13,7 +13,7 @@ module BigintPk
       end
 
       def create_migration
-        version = Time.now.strftime '%Y%m%d%H%M%S'
+        version = Time.now.utc.strftime '%Y%m%d%H%M%S'
         template "migration.rb", "db/migrate/#{version}_change_keys_to_bigint.rb"
       end
     end
