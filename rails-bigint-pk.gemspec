@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "railties", '~> 3.2.0'
 
   s.add_development_dependency "rspec"
+  s.add_development_dependency "travis-lint"
   s.add_development_dependency "rails"
   s.add_development_dependency "debugger"
   s.add_development_dependency "mysql2", '~> 0.3.10'
