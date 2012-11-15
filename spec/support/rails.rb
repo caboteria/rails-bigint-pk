@@ -1,12 +1,16 @@
 def use_database! db
-  case db
-  when :mysql
-    FileUtils.cp "#{FixturesDir}/mysql_database.yml", "#{RailsDir}/config/database.yml"
-  when :postgres
-    FileUtils.cp "#{FixturesDir}/postgresql_database.yml", "#{RailsDir}/config/database.yml"
-  when :sqlite3
-    FileUtils.cp "#{FixturesDir}/sqlite3_database.yml", "#{RailsDir}/config/database.yml"
-  end
+  src, dest =
+    case db
+    when :mysql
+      ["#{FixturesDir}/mysql_database.yml", "#{RailsDir}/config/database.yml"]
+    when :postgres
+      ["#{FixturesDir}/postgresql_database.yml", "#{RailsDir}/config/database.yml"]
+    when :sqlite3
+      ["#{FixturesDir}/sqlite3_database.yml", "#{RailsDir}/config/database.yml"]
+    end
+
+  log{ "copying #{src} to #{dest}" }
+  FileUtils.cp src, dest
 
   rake 'db:drop'
   rake 'db:create'
