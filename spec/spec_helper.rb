@@ -23,6 +23,9 @@ RSpec.configure do |c|
       FileUtils.rm_rf RailsAppName
       run "rails new #{RailsAppName}"
       FileUtils.cp "#{FixturesDir}/Gemfile", "#{RailsDir}/Gemfile"
+      in_directory RailsDir do
+        Bundler.with_clean_env { run "bundle check || bundle install" }
+      end
       File.open "#{RailsDir}/Gemfile", 'a' do |f|
         f.puts %Q{gem 'rails-bigint-pk', path: '#{Root}'}
       end

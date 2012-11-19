@@ -28,7 +28,5 @@ end
 
 def execute_ruby ruby
   File.open("#{TmpDir}/cmd.rb", 'w'){|f| f.print ruby }
-  in_directory( RailsDir ) do
-    run "bundle exec rails runner #{TmpDir}/cmd.rb"
-  end
+  bundle_exec "rails runner #{TmpDir}/cmd.rb"
 end

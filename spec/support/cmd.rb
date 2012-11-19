@@ -1,12 +1,17 @@
 require 'open3'
 
 def run *args
-  stdin, stdout, stderr, wait_thr = Open3.popen3 *args
+  _, stdout, stderr, wait_thr = Open3.popen3( *args )
   cmd_process = wait_thr.value
+
+  log do
+    "(in #{Dir.pwd})
+      command: #{args.join ' '}"
+  end
 
   unless cmd_process.success?
     fail [
-      "Error running: '#{args.join(' ')}'",
+      "Error",
       "\n\nstdout:\n\n#{stdout.read}",
       "\n\nstderr:\n\n#{stderr.read}"
     ].join("\n")
@@ -15,10 +20,23 @@ def run *args
   if block_given?
     yield stdout, stderr
   else
-    stdout.read.chomp
+    output, error = stdout.read, stderr.read
+    log do
+      "stdout: #{output}
+       stderr: #{error}"
+    end
+    output.chomp
   end
 end
 
 def rake task
-  in_directory( RailsDir){ run "bundle exec rake #{task}"}
+  bundle_exec "rake #{task}"
+end
+
+def bundle_exec command
+  in_directory( RailsDir) do
+    Bundler.with_clean_env do
+      run "bundle exec #{command}"
+    end
+  end
 end
