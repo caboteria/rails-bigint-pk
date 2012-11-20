@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Migrations', :integration do
   before :all do
-    in_directory( RailsDir ){ run 'rails generate bigint_pk:install'}
+    in_directory( RailsDir ){ run 'rails generate bigint_pk:install' }
   end
 
   describe 'create_table' do
@@ -42,7 +42,6 @@ describe 'Migrations', :integration do
       end
     end
 
-
     context 'with a mysql database' do
       before(:all) do
         use_database! :mysql
@@ -73,7 +72,6 @@ describe 'Migrations', :integration do
       they_use_bigint_foreign_keys
     end
   end
-
 
   describe 'existing tables' do
     def self.they_have_their_primary_keys_migrated
@@ -130,7 +128,6 @@ describe 'Migrations', :integration do
 
     InitializerFile = "#{RailsDir}/config/initializers/bigint_pk.rb"
 
-
     before :each do
       initializer = File.read InitializerFile
       initializer.gsub! /enabled = true/, 'enabled = false'
@@ -156,6 +153,36 @@ describe 'Migrations', :integration do
 
       they_have_their_primary_keys_migrated
       they_have_their_foreign_keys_migrated
+    end
+  end
+
+  describe "with models & migrations created after bigint migration" do
+    before :all do
+      in_directory ( RailsDir ) { run 'rails g model subject' }
+    end
+
+    def self.it_completes_migration
+      it "completes the migration" do
+        in_directory( RailsDir ) do
+          run("rake db:migrate")
+        end
+      end
+    end
+    
+    context "with a mysql database" do
+      before(:each) do
+        use_database! :mysql
+      end
+
+      it_completes_migration
+    end
+    
+    context "with a postgresql database" do
+      before(:each) do
+        use_database! :postgres
+      end
+
+      it_completes_migration
     end
   end
 end

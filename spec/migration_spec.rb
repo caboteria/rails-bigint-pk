@@ -6,7 +6,7 @@ describe 'ChangeKeysToBigint' do
     double('Connection').tap do |c|
       c.stub(:quote_table_name){|tn| "`#{tn}`"}
       c.stub(:quote_column_name){|column| "`#{column}`"}
-
+      c.stub(:table_exists?) { true }
       c.stub(:execute){|sql| queries << sql }
     end
   end
