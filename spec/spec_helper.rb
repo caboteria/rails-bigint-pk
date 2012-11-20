@@ -17,6 +17,8 @@ RSpec.configure do |c|
   }
 
   c.before :all, :integration do
+    log { %Q{ ENV:\n#{ENV.map{|k, v| "#{k}=#{v}"}}}}
+
     FileUtils.mkdir_p TmpDir
 
     in_directory TmpDir do
