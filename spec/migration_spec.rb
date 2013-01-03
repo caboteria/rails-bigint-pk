@@ -8,6 +8,13 @@ describe 'ChangeKeysToBigint' do
       c.stub(:quote_column_name){|column| "`#{column}`"}
       c.stub(:table_exists?) { true }
       c.stub(:execute){|sql| queries << sql }
+      c.stub(:column_exists?) do |table_name, column_name|
+        if table_name.to_s == 'coaches' && column_name == 'team_id'
+          false
+        else
+          true
+        end
+      end
     end
   end
   let(:queries){ [] }
@@ -15,14 +22,17 @@ describe 'ChangeKeysToBigint' do
   before do
     stub_const('Team', double('Team', table_name: 'teams', primary_key: 'id'))
     stub_const('Player', double('Player', table_name: 'players', primary_key: 'id'))
+    stub_const('Coach', double('Coach', table_name: 'coaches', primary_key: 'id'))
     Team.stub( reflect_on_all_associations: [])
     Player.stub( reflect_on_all_associations: [
+      double('belongs_to', macro: :belongs_to, foreign_key: 'team_id')])
+    Coach.stub( reflect_on_all_associations: [
       double('belongs_to', macro: :belongs_to, foreign_key: 'team_id')])
 
     stub_const('Rails', double('Rails'))
     Rails.stub_chain 'application.eager_load!'
 
-    ActiveRecord::Base.stub( subclasses: [ Team, Player ], connection: connection)
+    ActiveRecord::Base.stub( subclasses: [ Team, Player, Coach ], connection: connection)
     ActiveRecord::Base.stub_chain('connection_pool.with_connection') do |&prok|
       prok.call connection
     end
@@ -35,7 +45,8 @@ describe 'ChangeKeysToBigint' do
       ChangeKeysToBigint.migrate :up
       expect( queries ).to include(
         'ALTER TABLE `teams` ALTER COLUMN `id` TYPE bigint',
-        'ALTER TABLE `players` ALTER COLUMN `id` TYPE bigint'
+        'ALTER TABLE `players` ALTER COLUMN `id` TYPE bigint',
+        'ALTER TABLE `coaches` ALTER COLUMN `id` TYPE bigint'
       )
     end
 
@@ -43,6 +54,13 @@ describe 'ChangeKeysToBigint' do
       ChangeKeysToBigint.migrate :up
       expect( queries ).to include(
         'ALTER TABLE `players` ALTER COLUMN `team_id` TYPE bigint'
+      )
+    end
+
+    it 'does not migrate foreign keys that do not exist in database' do
+      ChangeKeysToBigint.migrate :up
+      expect( queries ).to_not include(
+        'ALTER TABLE `coaches` ALTER COLUMN `team_id` TYPE bigint'
       )
     end
   end
@@ -54,7 +72,8 @@ describe 'ChangeKeysToBigint' do
       ChangeKeysToBigint.migrate :up
       expect( queries ).to include(
         'ALTER TABLE `teams` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment',
-        'ALTER TABLE `players` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment'
+        'ALTER TABLE `players` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment',
+        'ALTER TABLE `coaches` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment'
       )
     end
 
@@ -62,6 +81,13 @@ describe 'ChangeKeysToBigint' do
       ChangeKeysToBigint.migrate :up
       expect( queries ).to include(
         'ALTER TABLE `players` MODIFY COLUMN `team_id` bigint(20) DEFAULT NULL')
+    end
+
+    it 'does not migrate foreign keys that do not exist in database' do
+      ChangeKeysToBigint.migrate :up
+      expect( queries ).to_not include(
+        'ALTER TABLE `coaches` MODIFY COLUMN `team_id` bigint(20) DEFAULT NULL'
+      )
     end
   end
 
