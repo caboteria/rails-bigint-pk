@@ -1,3 +1,6 @@
+# This file is auto-generated when running `rails generate bigint_pk:install`
+# by the gem rails-bigint-pk (https://github.com/VerticalResponse/rails-bigint-pk).
+
 class ChangeKeysToBigint < ActiveRecord::Migration
   def change
     Rails.application.eager_load!
