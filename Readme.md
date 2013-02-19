@@ -53,7 +53,7 @@ cd rails-bigint-pk
 bundle install
 
 # verify that Gemfile.lock's entry for activerecord matches the version you want
-to test against.
+# to test against.
 
 # This will run integration specs against all supported database types, and
 # requires running servers for postgres and mysql.
