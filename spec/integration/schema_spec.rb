@@ -39,6 +39,24 @@ describe 'Migrations', :integration do
             execute_ruby 'puts Ruler.all.map{|r| r.empire.id}'
           ).to eq ["#{2**31 + 1}", "#{2**31 + 2}"].join("\n")
         end
+
+        context 'that were added to an existing table' do
+          they 'can reference 64bit values' do
+            expect{
+              execute_sql %Q{
+                insert into rulers( id ) values(#{2 ** 31 + 1});
+                insert into rulers( id ) values(#{2 ** 31 + 2});
+
+                insert into rulers( favourite_ruler_id ) values(#{2 ** 31 + 1});
+                insert into rulers( favourite_ruler_id ) values(#{2 ** 31 + 2});
+              }
+            }.to_not raise_error
+
+            expect(
+              execute_ruby('puts Ruler.all.map{|r| r.favourite_ruler_id}').split
+            ).to eq ["#{2**31 + 1}", "#{2**31 + 2}"]
+          end
+        end
       end
     end
 
@@ -130,7 +148,7 @@ describe 'Migrations', :integration do
 
     before :each do
       initializer = File.read InitializerFile
-      initializer.gsub! /enabled = true/, 'enabled = false'
+      initializer.gsub!( /enabled = true/, 'enabled = false' )
       File.open( InitializerFile, 'w'){|f| f.print initializer }
     end
 
@@ -158,7 +176,7 @@ describe 'Migrations', :integration do
 
   describe "with models & migrations created after bigint migration" do
     before :all do
-      in_directory ( RailsDir ) { run 'rails g model subject' }
+      in_directory( RailsDir ) { run 'rails g model subject' }
     end
 
     def self.it_completes_migration
