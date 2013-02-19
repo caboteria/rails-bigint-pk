@@ -1,3 +1,11 @@
-## 0.0.1 19 November 2012
+## 0.0.2	(19 February 2013)
+
+Bug Fixes:
+
+	- `references` uses 64bit keys for `change_table` now.
+	- work with polymorphic associations (@Bishop, #12)
+	
+
+## 0.0.1 	(19 November 2012)
 
 Initial version.
