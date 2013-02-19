@@ -87,6 +87,7 @@ describe BigintPk do
                 @table_definition.references *args
               end
             end
+
             context 'when there is common options' do
               let(:options){{ null: false, polymorphic: true }}
 
@@ -97,6 +98,7 @@ describe BigintPk do
                 @table_definition.references *args
               end
             end
+
             context "when there is polymorphic options" do
               let(:options){{ null: false, polymorphic: { limit: 120 } }}
 
