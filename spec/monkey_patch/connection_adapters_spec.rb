@@ -75,6 +75,39 @@ describe BigintPk do
               @table_definition.references *args
             end
           end
+
+          context 'when reference is polymorphic' do
+            context 'when there is not additional options' do
+              let(:options){{ polymorphic: true }}
+
+              it 'should not contain limit' do
+                @table_definition.should_receive(:references_without_default_bigint_fk).with(
+                  'some_other_table', hash_including( polymorphic: {} )
+                )
+                @table_definition.references *args
+              end
+            end
+            context 'when there is common options' do
+              let(:options){{ null: false, polymorphic: true }}
+
+              it "should contain common options" do
+                @table_definition.should_receive(:references_without_default_bigint_fk).with(
+                  'some_other_table', hash_including( polymorphic: { null: false } )
+                )
+                @table_definition.references *args
+              end
+            end
+            context "when there is polymorphic options" do
+              let(:options){{ null: false, polymorphic: { limit: 120 } }}
+
+              it "should contain polymorphic options" do
+                @table_definition.should_receive(:references_without_default_bigint_fk).with(
+                  'some_other_table', hash_including( polymorphic: { limit: 120 } )
+                )
+                @table_definition.references *args
+              end
+            end
+          end
         end
       end
     end
