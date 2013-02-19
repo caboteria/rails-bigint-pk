@@ -42,14 +42,9 @@ describe BigintPk do
         ).to eq 'bigint(20) DEFAULT NULL auto_increment PRIMARY KEY'
       end
 
-      describe ActiveRecord::ConnectionAdapters::TableDefinition do
+      def self.it_makes_references_default_to_64bit
         describe '#references' do
-          before do
-            ActiveRecord::ConnectionAdapters::TableDefinition.
-              any_instance.stub :references_without_default_bigint_fk
-
-            @table_definition = ActiveRecord::ConnectionAdapters::TableDefinition.new Object.new
-          end
+          before { abstract_table_class.any_instance.stub :references_without_default_bigint_fk }
 
 
           let(:args){ ['some_other_table', options ].compact }
@@ -58,10 +53,10 @@ describe BigintPk do
             let(:options){{ limit: 6 }}
 
             it 'uses the specified limit' do
-              @table_definition.should_receive(:references_without_default_bigint_fk).with(
+              abstract_table.should_receive(:references_without_default_bigint_fk).with(
                 'some_other_table', hash_including( limit: 6 )
               )
-              @table_definition.references *args
+              abstract_table.references *args
             end
           end
 
@@ -69,10 +64,10 @@ describe BigintPk do
             let(:options){}
 
             it 'defaults the limit to 8' do
-              @table_definition.should_receive(:references_without_default_bigint_fk).with(
+              abstract_table.should_receive(:references_without_default_bigint_fk).with(
                 'some_other_table', hash_including( limit: 8 )
               )
-              @table_definition.references *args
+              abstract_table.references *args
             end
           end
 
@@ -81,10 +76,10 @@ describe BigintPk do
               let(:options){{ polymorphic: true }}
 
               it 'should not contain limit' do
-                @table_definition.should_receive(:references_without_default_bigint_fk).with(
+                abstract_table.should_receive(:references_without_default_bigint_fk).with(
                   'some_other_table', hash_including( polymorphic: {} )
                 )
-                @table_definition.references *args
+                abstract_table.references *args
               end
             end
 
@@ -92,10 +87,10 @@ describe BigintPk do
               let(:options){{ null: false, polymorphic: true }}
 
               it "should contain common options" do
-                @table_definition.should_receive(:references_without_default_bigint_fk).with(
+                abstract_table.should_receive(:references_without_default_bigint_fk).with(
                   'some_other_table', hash_including( polymorphic: { null: false } )
                 )
-                @table_definition.references *args
+                abstract_table.references *args
               end
             end
 
@@ -103,14 +98,33 @@ describe BigintPk do
               let(:options){{ null: false, polymorphic: { limit: 120 } }}
 
               it "should contain polymorphic options" do
-                @table_definition.should_receive(:references_without_default_bigint_fk).with(
+                abstract_table.should_receive(:references_without_default_bigint_fk).with(
                   'some_other_table', hash_including( polymorphic: { limit: 120 } )
                 )
-                @table_definition.references *args
+                abstract_table.references *args
               end
             end
           end
         end
+      end
+
+      describe ActiveRecord::ConnectionAdapters::Table do
+        let(:abstract_table_class){ ActiveRecord::ConnectionAdapters::TableDefinition }
+        let(:abstract_table){ abstract_table_class.new Object.new }
+        it_makes_references_default_to_64bit
+      end
+
+      describe ActiveRecord::ConnectionAdapters::TableDefinition do
+        let(:connection_adapter_double) do
+          double("Connection Adapter").tap do |double|
+            double.stub :add_column
+          end
+        end
+        let(:abstract_table_class){ ActiveRecord::ConnectionAdapters::Table }
+        let(:abstract_table) do
+          abstract_table_class.new 'test_table', connection_adapter_double
+        end
+        it_makes_references_default_to_64bit
       end
     end
 

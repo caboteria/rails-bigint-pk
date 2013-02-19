@@ -30,6 +30,7 @@ describe BigintPk::Generators::InstallGenerator, :integration do
         File.basename( migration_file ).gsub(/^\d+_/, '')
       end.should == %w[
         create_empires_and_rulers.rb
+        update_rulers_add_favourite_ruler.rb
         change_keys_to_bigint.rb
         test_migration_after.rb
         change_keys_to_bigint.rb
