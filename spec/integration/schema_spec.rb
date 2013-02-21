@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe 'Migrations', :integration do
   before :all do
-    in_directory( RailsDir ){ run 'rails generate bigint_pk:install' }
+    in_directory( RailsDir ) do
+      run 'rails generate bigint_pk:install'
+      FileUtils.rm Dir['./db/migrate/**change_keys_to_bigint*'].first
+    end
   end
 
   describe 'create_table' do
