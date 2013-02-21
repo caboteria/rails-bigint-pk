@@ -31,33 +31,33 @@ describe 'Migrations', :integration do
         they 'can reference 64bit values' do
           expect{
             execute_sql %Q{
-              insert into empires values(#{2 ** 31 + 1});
-              insert into empires values(#{2 ** 31 + 2});
-              insert into rulers( empire_id ) values(#{2 ** 31 + 1});
-              insert into rulers( empire_id ) values(#{2 ** 31 + 2});
+              insert into empires values(#{2 ** 31 - 1});
+              insert into empires values(#{2 ** 31});
+              insert into rulers( empire_id ) values(#{2 ** 31 - 1});
+              insert into rulers( empire_id ) values(#{2 ** 31});
             }
           }.to_not raise_error
 
           expect(
-            execute_ruby 'puts Ruler.all.map{|r| r.empire.id}'
-          ).to eq ["#{2**31 + 1}", "#{2**31 + 2}"].join("\n")
+            execute_ruby 'puts Ruler.all.map{|r| r.empire_id}'
+          ).to eq ["#{2**31 - 1}", "#{2**31}"].join("\n")
         end
 
         context 'that were added to an existing table' do
           they 'can reference 64bit values' do
             expect{
               execute_sql %Q{
-                insert into rulers( id ) values(#{2 ** 31 + 1});
-                insert into rulers( id ) values(#{2 ** 31 + 2});
+                insert into rulers( id ) values(#{2 ** 31 - 1});
+                insert into rulers( id ) values(#{2 ** 31});
 
-                insert into rulers( favourite_ruler_id ) values(#{2 ** 31 + 1});
-                insert into rulers( favourite_ruler_id ) values(#{2 ** 31 + 2});
+                insert into rulers( favourite_ruler_id ) values(#{2 ** 31 - 1});
+                insert into rulers( favourite_ruler_id ) values(#{2 ** 31});
               }
             }.to_not raise_error
 
             expect(
               execute_ruby('puts Ruler.all.map{|r| r.favourite_ruler_id}').split
-            ).to eq ["#{2**31 + 1}", "#{2**31 + 2}"]
+            ).to eq ["#{2**31 - 1}", "#{2**31}"]
           end
         end
       end
