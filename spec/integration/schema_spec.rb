@@ -1,14 +1,21 @@
 require 'spec_helper'
 
 describe 'Migrations', :integration do
-  before :all do
-    in_directory( RailsDir ) do
-      run 'rails generate bigint_pk:install'
-      FileUtils.rm Dir['./db/migrate/**change_keys_to_bigint*'].first
-    end
+  after :each do
+    execute_sql %Q{
+      delete from rulers;
+      delete from empires;
+    }
   end
 
   describe 'create_table' do
+    before :each do
+      in_directory( RailsDir ) do
+        run 'rails generate bigint_pk:install'
+        FileUtils.rm Dir['./db/migrate/**change_keys_to_bigint*'].first
+      end
+    end
+
     def self.they_use_bigint_primary_keys
       describe 'primary keys' do
         they 'default to 64bit' do
@@ -64,7 +71,7 @@ describe 'Migrations', :integration do
     end
 
     context 'with a mysql database' do
-      before(:all) do
+      before(:each) do
         use_database! :mysql
         rake 'db:migrate'
       end
@@ -74,7 +81,7 @@ describe 'Migrations', :integration do
     end
 
     context 'with a postgresql database' do
-      before(:all) do
+      before(:each) do
         use_database! :postgres
         rake 'db:migrate'
       end
@@ -84,7 +91,7 @@ describe 'Migrations', :integration do
     end
 
     context 'with a sqlite3 database' do
-      before(:all) do
+      before(:each) do
         use_database! :sqlite3
         rake 'db:migrate'
       end
@@ -95,6 +102,18 @@ describe 'Migrations', :integration do
   end
 
   describe 'existing tables' do
+    InitializerFile = "./config/initializers/bigint_pk.rb"
+
+    before :each do
+      in_directory( RailsDir ) do
+        run 'rails generate bigint_pk:install'
+
+        initializer = File.read InitializerFile
+        initializer.gsub!( /enabled = true/, 'enabled = false' )
+        File.open( InitializerFile, 'w'){|f| f.print initializer }
+      end
+    end
+
     def self.they_have_their_primary_keys_migrated
       they 'have their primary keys migrated' do
         expect{
@@ -147,15 +166,6 @@ describe 'Migrations', :integration do
       end
     end
 
-    InitializerFile = "#{RailsDir}/config/initializers/bigint_pk.rb"
-
-    before :each do
-      initializer = File.read InitializerFile
-      initializer.gsub!( /enabled = true/, 'enabled = false' )
-      File.open( InitializerFile, 'w'){|f| f.print initializer }
-    end
-
-
     context 'with a mysql database' do
       before(:each) do
         use_database! :mysql
@@ -178,8 +188,11 @@ describe 'Migrations', :integration do
   end
 
   describe "with models & migrations created after bigint migration" do
-    before :all do
-      in_directory( RailsDir ) { run 'rails g model subject' }
+    before :each do
+      in_directory( RailsDir ) do
+        run 'rails generate bigint_pk:install'
+        run 'rails generate model subject'
+      end
     end
 
     def self.it_completes_migration
