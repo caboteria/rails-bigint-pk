@@ -1,5 +1,4 @@
 common: &common
-  database: test_rails_app
   adapter: mysql2
   encoding: utf8
   reconnect: false
@@ -7,7 +6,9 @@ common: &common
   host: localhost
 
 development:
+  database: dev_rails_app
   <<: *common
 
 test:
+  database: test_rails_app
   <<: *common

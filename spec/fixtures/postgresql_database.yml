@@ -1,12 +1,11 @@
 common: &common
   adapter: postgresql
-  database: test_rails_app
-  username: postgres
-  password: 
   host: localhost
 
 development:
+  database: dev_rails_app
   <<: *common
 
 test:
+  database: test_rails_app
   <<: *common
