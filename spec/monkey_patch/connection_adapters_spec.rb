@@ -110,7 +110,7 @@ describe BigintPk do
 
       describe ActiveRecord::ConnectionAdapters::Table do
         let(:abstract_table_class){ ActiveRecord::ConnectionAdapters::TableDefinition }
-        let(:abstract_table){ abstract_table_class.new Object.new }
+        let(:abstract_table){ abstract_table_class.new({}, "table", {}, {}) }
         it_makes_references_default_to_64bit
       end
 
