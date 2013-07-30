@@ -5,7 +5,7 @@ class ChangeKeysToBigint < ActiveRecord::Migration
   def change
     Rails.application.eager_load!
     ActiveRecord::Base.subclasses.select do |type|
-      connection.table_exists? type.table_name
+      !type.primary_key.blank? and connection.table_exists? type.table_name
     end.each do |type|
       BigintPk.update_primary_key type.table_name, type.primary_key
 
