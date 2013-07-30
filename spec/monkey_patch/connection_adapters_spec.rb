@@ -12,6 +12,8 @@ describe BigintPk do
           end
         end
       end
+      ActiveRecord::ConnectionHandling.send :remove_const, :VALID_CONN_PARAMS
+      load 'active_record/connection_adapters/postgresql/referential_integrity.rb'
       load 'active_record/connection_adapters/postgresql_adapter.rb'
       load 'active_record/connection_adapters/abstract_mysql_adapter.rb'
     end
