@@ -65,11 +65,18 @@ describe BigintPk do
           context 'when a limit is not specified' do
             let(:options){}
 
-            it 'defaults the limit to 8' do
+            it 'defaults the references limit to 8' do
               abstract_table.should_receive(:references_without_default_bigint_fk).with(
                 'some_other_table', hash_including( limit: 8 )
               )
               abstract_table.references *args
+            end
+
+            it 'defaults the belongs_to limit to 8' do
+              abstract_table.should_receive(:references_without_default_bigint_fk).with(
+                'some_other_table', hash_including( limit: 8 )
+              )
+              abstract_table.belongs_to *args
             end
           end
 
