@@ -1,4 +1,4 @@
-## rails-bigint-pk [![Build Status](https://secure.travis-ci.org/VerticalResponse/rails-bigint-pk.png?branch=master)](https://travis-ci.org/VerticalResponse/rails-bigint-pk)
+## rails-bigint-pk [![Build Status](https://secure.travis-ci.org/caboteria/rails-bigint-pk.png?branch=master)](https://travis-ci.org/caboteria/rails-bigint-pk)
 
 ### Overview
 
@@ -14,7 +14,7 @@ recommended to run the test suite against your version of rails and activerecord
 ### Installation & Usage
 
 * Add the following to your `Gemfile`
-  `gem 'rails-bigint-pk', git: 'https://github.com/VerticalResponse/rails-bigint-pk.git'`
+  `gem 'rails-bigint-pk', git: 'https://github.com/caboteria/rails-bigint-pk.git'`
 
 * Run the generator
   `rails generate bigint_pk:install`
@@ -44,7 +44,7 @@ add_column :my_table, :other_table_id, :int
 ### Running Tests Against Later Versions of Rails
 
 ```bash
-git clone git://github.com/VerticalResponse/rails-bigint-pk.git
+git clone git://github.com/caboteria/rails-bigint-pk.git
 cd rails-bigint-pk
 
 # edit rails-bigint-pk.gemspec or Gemfile to set the version of activerecord to
