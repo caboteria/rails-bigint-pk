@@ -63,6 +63,8 @@ module BigintPk
           references_without_default_bigint_fk( *args, options )
         end
         alias_method_chain :references, :default_bigint_fk
+        alias_method :belongs_to_without_default_bigint_fk, :belongs_to
+        alias_method :belongs_to, :references_with_default_bigint_fk
       end
     end
   end

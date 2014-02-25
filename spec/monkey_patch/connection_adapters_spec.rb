@@ -12,6 +12,8 @@ describe BigintPk do
           end
         end
       end
+      ActiveRecord::ConnectionHandling.send :remove_const, :VALID_CONN_PARAMS
+      load 'active_record/connection_adapters/postgresql/referential_integrity.rb'
       load 'active_record/connection_adapters/postgresql_adapter.rb'
       load 'active_record/connection_adapters/abstract_mysql_adapter.rb'
     end
@@ -63,11 +65,18 @@ describe BigintPk do
           context 'when a limit is not specified' do
             let(:options){}
 
-            it 'defaults the limit to 8' do
+            it 'defaults the references limit to 8' do
               abstract_table.should_receive(:references_without_default_bigint_fk).with(
                 'some_other_table', hash_including( limit: 8 )
               )
               abstract_table.references *args
+            end
+
+            it 'defaults the belongs_to limit to 8' do
+              abstract_table.should_receive(:references_without_default_bigint_fk).with(
+                'some_other_table', hash_including( limit: 8 )
+              )
+              abstract_table.belongs_to *args
             end
           end
 
@@ -110,7 +119,7 @@ describe BigintPk do
 
       describe ActiveRecord::ConnectionAdapters::Table do
         let(:abstract_table_class){ ActiveRecord::ConnectionAdapters::TableDefinition }
-        let(:abstract_table){ abstract_table_class.new Object.new }
+        let(:abstract_table){ abstract_table_class.new({}, "table", {}, {}) }
         it_makes_references_default_to_64bit
       end
 

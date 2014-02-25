@@ -10,7 +10,7 @@ describe BigintPk::Generators::InstallGenerator, :integration do
   end
 
   it 'creates a bigint_pk initializer' do
-    expect( File.exists? "#{RailsDir}/config/initializers/bigint_pk.rb").to be_true
+    expect(File.exists? "#{RailsDir}/config/initializers/bigint_pk.rb")
   end
 
   it 'creates a bigint_pk migration' do
