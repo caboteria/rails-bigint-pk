@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec"
   s.add_development_dependency "travis-lint"
   s.add_development_dependency "rails"
-  s.add_development_dependency "debugger"
   s.add_development_dependency "mysql2", '~> 0.3.10'
   s.add_development_dependency "mysql", '~> 2.8.1'
   s.add_development_dependency "pg", '~> 0.11'
