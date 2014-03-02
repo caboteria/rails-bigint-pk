@@ -1,10 +1,17 @@
+## 0.0.3	(02 March 2014)
+	- move project from VerticalResponse to caboteria (VerticalResponse went offline)
+	- update rails to 3.2.17
+	- build with Ruby 1.9.3 and 2.1.1
+	- document how to specify the rails3 version
+
+
 ## 0.0.2	(19 February 2013)
 
 Bug Fixes:
 
 	- `references` uses 64bit keys for `change_table` now.
 	- work with polymorphic associations (@Bishop, #12)
-	
+
 
 ## 0.0.1 	(19 November 2012)
 
