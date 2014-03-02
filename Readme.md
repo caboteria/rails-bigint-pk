@@ -13,10 +13,15 @@ recommended to run the test suite against your version of rails and activerecord
 
 ### Installation & Usage
 
-* Add the following to your `Gemfile`
-  `gem 'rails-bigint-pk', git: 'https://github.com/caboteria/rails-bigint-pk.git'`
+rails-bigint-pk has a `rails3` branch for support of 3.2.x versions of
+Rails.  The `master` branch supports Rails 4.  To install the rails3
+version, you can either download releases from Rubygems by adding the
+following to your `Gemfile`:
+  `gem 'rails-bigint-pk', '~>0.0.1'`
+... or you can install the newest code directly from git:
+  `gem 'rails-bigint-pk', github: 'caboteria/rails-bigint-pk', branch: 'rails3'`
 
-* Run the generator
+Then run the generator:
   `rails generate bigint_pk:install`
 
 This will create an initializer that enables 64 bit primary and foreign keys by
@@ -24,7 +29,6 @@ changing the default primary key type, and using `limit: 8` for foreign keys
 created via `references`.
 
 It will also create a migration to update all existing primary and foreign keys.
-
 
 ### Gotchas
 
