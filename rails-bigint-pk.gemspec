@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = BigintPk::VERSION
   s.authors     = ["David J. Hamilton"]
   s.email       = ["github@hjdivad.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/caboteria/rails-bigint-pk"
   s.summary     = %q{Easily use 64-bit primary keys in rails}
   s.description = %q{Easily use 64-bit primary keys in rails}
 
