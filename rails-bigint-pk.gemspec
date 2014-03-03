@@ -9,7 +9,13 @@ Gem::Specification.new do |s|
   s.email       = ["github@hjdivad.com"]
   s.homepage    = "https://github.com/caboteria/rails-bigint-pk"
   s.summary     = %q{Easily use 64-bit primary keys in rails}
-  s.description = %q{Easily use 64-bit primary keys in rails}
+  s.description = <<-DESC
+                    Rails-bigint-pk modifies Rails so that it uses
+                    64-bit primary and foreign keys.  It works with
+                    MySQL and PostgreSQL and has versions for Rails
+                    3 and 4.
+                    DESC
+  s.licenses    = ['MIT']
 
   s.rubyforge_project = "rails-bigint-pk"
 
