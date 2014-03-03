@@ -57,5 +57,5 @@ bundle install
 
 # This will run integration specs against all supported database types, and
 # requires running servers for postgres and mysql.
-rake spec
+bundle exec rake spec
 ```
