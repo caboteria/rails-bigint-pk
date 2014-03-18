@@ -23,7 +23,7 @@ download releases from Rubygems by adding the following to your
 
 ... or you can install the newest code directly from git:
 
-  `gem 'rails-bigint-pk', github: 'caboteria/rails-bigint-pk', branch: 'rails3'`
+  `gem 'rails-bigint-pk', github: 'caboteria/rails-bigint-pk'`
 
 Then run the generator:
   `rails generate bigint_pk:install`
@@ -45,7 +45,7 @@ adding the following to your `Gemfile`:
 ... or you can install the newest rails3 branch code directly from
 git:
 
-  `gem 'rails-bigint-pk', github: 'caboteria/rails-bigint-pk', branch: 'rails3'
+  `gem 'rails-bigint-pk', github: 'caboteria/rails-bigint-pk', branch: 'rails3'`
 
 Then run the generator:
   `rails generate bigint_pk:install`
