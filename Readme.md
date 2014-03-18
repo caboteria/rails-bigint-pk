@@ -2,8 +2,8 @@
 
 ### Overview
 
-rails-bigint-pk aims to be a simple, transparent way to use 64bit primary keys
-in mysql and postgres.
+rails-bigint-pk is a simple, transparent way to use 64bit primary keys
+in MySQL and PostgreSQL.
 
 ### Requirements
 
