@@ -19,15 +19,9 @@ rails-bigint-pk supports Rails 4 and 4.1. To install, you can either
 download releases from Rubygems by adding the following to your
 `Gemfile`:
 
-For Rails 4
-
-  `gem 'rails-bigint-pk', '~>1.0.0'`
-
-For Rails 4.1
-
   `gem 'rails-bigint-pk', '~>1.1.0'`
 
-... or you can install the newest code directly from git:
+... or, if you enjoy being on the bleeding edge, you can install the newest code directly from git:
 
   `gem 'rails-bigint-pk', github: 'caboteria/rails-bigint-pk'`
 
