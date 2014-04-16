@@ -2,6 +2,9 @@ require 'spec_helper'
 require 'active_record/connection_adapters/postgresql_adapter'
 require 'active_record/connection_adapters/abstract_mysql_adapter'
 
+MYSQL_DEFAULT_PK = ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter::NATIVE_DATABASE_TYPES[:primary_key]
+PG_DEFAULT_PK = ActiveRecord::ConnectionAdapters::PostgreSQLAdapter::NATIVE_DATABASE_TYPES[:primary_key]
+
 describe BigintPk do
   describe '::setup' do
     def reset_connection_adapters!
@@ -144,14 +147,14 @@ describe BigintPk do
         expect(
           ActiveRecord::ConnectionAdapters::PostgreSQLAdapter::
             NATIVE_DATABASE_TYPES[:primary_key]
-        ).to eq 'serial primary key'
+        ).to eq PG_DEFAULT_PK
       end
 
       it 'does not alter the default primary key for either mysql adapters' do
         expect(
           ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter::
             NATIVE_DATABASE_TYPES[:primary_key]
-        ).to eq 'int(11) auto_increment PRIMARY KEY'
+        ).to eq MYSQL_DEFAULT_PK
       end
     end
   end
