@@ -31,6 +31,7 @@ describe 'ChangeKeysToBigint' do
 
     stub_const('Rails', double('Rails'))
     Rails.stub_chain 'application.eager_load!'
+    Rails.stub(env: double('test', to_s: 'test', :'test?' => true, :'production?' => false, :'development?' => false))
 
     ActiveRecord::Base.stub( subclasses: [ Team, Player, Coach ], connection: connection)
     ActiveRecord::Base.stub_chain('connection_pool.with_connection') do |&prok|
@@ -71,9 +72,9 @@ describe 'ChangeKeysToBigint' do
     it 'migrates primary keys' do
       ChangeKeysToBigint.migrate :up
       expect( queries ).to include(
-        'ALTER TABLE `teams` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment',
-        'ALTER TABLE `players` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment',
-        'ALTER TABLE `coaches` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment'
+        'ALTER TABLE `teams` MODIFY COLUMN `id` bigint(20) auto_increment',
+        'ALTER TABLE `players` MODIFY COLUMN `id` bigint(20) auto_increment',
+        'ALTER TABLE `coaches` MODIFY COLUMN `id` bigint(20) auto_increment'
       )
     end
 

@@ -15,11 +15,17 @@ recommended to run the test suite against your version of rails and activerecord
 
 #### Rails 4
 
-rails-bigint-pk supports Rails 4.  To install, you can either
+rails-bigint-pk supports Rails 4 and 4.1. To install, you can either
 download releases from Rubygems by adding the following to your
 `Gemfile`:
 
+For Rails 4
+
   `gem 'rails-bigint-pk', '~>1.0.0'`
+
+For Rails 4.1
+
+  `gem 'rails-bigint-pk', '~>1.1.0'`
 
 ... or you can install the newest code directly from git:
 
