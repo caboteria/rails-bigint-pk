@@ -1,3 +1,9 @@
+## 1.1.0	(13 May 2014)
+
+Improvement:
+   - Changes corresponding to changes in Rails 4.1 to support MySQL 5.7.3
+
+
 ## 1.0.0	(21 April 2014)
 
 New Features:

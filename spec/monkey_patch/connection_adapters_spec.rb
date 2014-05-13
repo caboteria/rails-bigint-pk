@@ -41,7 +41,7 @@ describe BigintPk do
         expect(
           ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter::
             NATIVE_DATABASE_TYPES[:primary_key]
-        ).to eq 'bigint(20) DEFAULT NULL auto_increment PRIMARY KEY'
+        ).to eq 'bigint(20) auto_increment PRIMARY KEY'
       end
 
       def self.it_makes_references_default_to_64bit
@@ -151,7 +151,7 @@ describe BigintPk do
         expect(
           ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter::
             NATIVE_DATABASE_TYPES[:primary_key]
-        ).to eq 'int(11) DEFAULT NULL auto_increment PRIMARY KEY'
+        ).to eq 'int(11) auto_increment PRIMARY KEY'
       end
     end
   end
