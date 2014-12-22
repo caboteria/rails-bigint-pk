@@ -70,22 +70,23 @@ end
 add_column :my_table, :other_table_id, :int
 ```
 
-
 ### Running Tests Against Later Versions of Rails
 
 ```bash
 git clone git://github.com/caboteria/rails-bigint-pk.git
 cd rails-bigint-pk
 
-# edit rails-bigint-pk.gemspec or Gemfile to set the version of activerecord to
+# edit spec/fixtures/Gemfile to set the version of activerecord to
 # the one you are using
 
-bundle install
-
-# verify that Gemfile.lock's entry for activerecord matches the version you want
-# to test against.
+# purge the test fixture
+rm -rf tmp/test\_rails\_app
 
 # This will run integration specs against all supported database types, and
 # requires running servers for postgres and mysql.
 bundle exec rake spec
+
+# verify that tmp/test_rails_app/Gemfile.lock's entry for activerecord
+# matches the version you wanted to test against.
+
 ```
