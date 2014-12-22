@@ -26,8 +26,8 @@ Gem::Specification.new do |s|
   # test with
   s.required_ruby_version = '>= 1.9.3'
 
-  s.add_runtime_dependency "activerecord", '>= 4.0', '< 4.2'
-  s.add_runtime_dependency "railties", '>= 4.0', '< 4.2'
+  s.add_runtime_dependency "activerecord", '>= 4.0', '< 5'
+  s.add_runtime_dependency "railties", '>= 4.0', '< 5'
 
   s.add_development_dependency "rspec", '~> 2.14'
   s.add_development_dependency "travis-lint", '~> 1.7'
