@@ -22,6 +22,10 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  # we might work with older rubies but this is the oldest one that we
+  # test with
+  s.required_ruby_version = '>= 1.9.3'
+
   s.add_runtime_dependency "activerecord", '>= 4.0', '< 4.2'
   s.add_runtime_dependency "railties", '>= 4.0', '< 4.2'
 
