@@ -7,15 +7,15 @@ in MySQL and PostgreSQL.
 
 ### Requirements
 
-rails-bigint-pk has been tested with rails 4.0.4, which at the time of writing
-is the latest patch version for 4.0.  If you use a higher patch version, it is
-recommended to run the test suite against your version of rails and activerecord.
+rails-bigint-pk has been tested with rails 4.2.0, which at the time of writing
+is the latest patch version for 4.2.  If you use a higher patch version, we
+recommend that you run the test suite against your version of rails and activerecord.
 
 ### Installation & Usage
 
 #### Rails 4
 
-rails-bigint-pk supports Rails 4 and 4.1. To install, you can either
+rails-bigint-pk supports Rails 4.2, 4.1, and 4.0. To install, you can either
 download releases from Rubygems by adding the following to your
 `Gemfile`:
 
