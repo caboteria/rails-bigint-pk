@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - 1.9.3
-  - 2.1.1
+  - 2.1.5
 # https://github.com/heroku/heroku/pull/858
 before_install:
   - git config --global user.name "Travis CI"
