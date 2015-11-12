@@ -81,7 +81,7 @@ module BigintPk
       c.execute %Q{
         ALTER TABLE #{c.quote_table_name table_name}
         MODIFY COLUMN #{c.quote_column_name key_name}
-        bigint(20) DEFAULT NULL #{'auto_increment' if is_primary_key}
+        bigint(20) #{is_primary_key ? 'auto_increment' : 'DEFAULT NULL'}
       }.gsub(/\s+/, ' ').strip
     when 'SQLite'
       # noop; sqlite always has 64bit pkeys
