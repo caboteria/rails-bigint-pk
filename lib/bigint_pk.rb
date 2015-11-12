@@ -40,7 +40,7 @@ module BigintPk
 
     if ca.const_defined? :AbstractMysqlAdapter
       ca::AbstractMysqlAdapter::NATIVE_DATABASE_TYPES[:primary_key] = 
-        'bigint(20) DEFAULT NULL auto_increment PRIMARY KEY'
+        'bigint(20) auto_increment PRIMARY KEY'
     end
   end
 
