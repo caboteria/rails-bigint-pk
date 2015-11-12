@@ -71,9 +71,9 @@ describe 'ChangeKeysToBigint' do
     it 'migrates primary keys' do
       ChangeKeysToBigint.migrate :up
       expect( queries ).to include(
-        'ALTER TABLE `teams` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment',
-        'ALTER TABLE `players` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment',
-        'ALTER TABLE `coaches` MODIFY COLUMN `id` bigint(20) DEFAULT NULL auto_increment'
+        'ALTER TABLE `teams` MODIFY COLUMN `id` bigint(20) auto_increment',
+        'ALTER TABLE `players` MODIFY COLUMN `id` bigint(20) auto_increment',
+        'ALTER TABLE `coaches` MODIFY COLUMN `id` bigint(20) auto_increment'
       )
     end
 
