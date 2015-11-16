@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "travis", '~> 1.8'
   s.add_development_dependency "rails", '~> 4.1'
   s.add_development_dependency "mysql2", '~> 0.3'
-  s.add_development_dependency "mysql", '~> 2.8'
+  s.add_development_dependency "mysql", '~> 2.9'
   s.add_development_dependency "pg", '~> 0.11'
   s.add_development_dependency "sqlite3", '~> 1.3'
   s.add_development_dependency "guard", '~>2.5'
