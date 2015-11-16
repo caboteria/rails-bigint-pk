@@ -6,3 +6,5 @@ rvm:
 before_install:
   - git config --global user.name "Travis CI"
   - git config --global user.email "user@example.com"
+# http://docs.travis-ci.com/user/migrating-from-legacy/
+sudo: false
