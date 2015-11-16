@@ -21,11 +21,11 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "activerecord", '~> 3.2.0'
   s.add_runtime_dependency "railties", '~> 3.2.0'
 
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "travis-lint"
-  s.add_development_dependency "rails"
-  s.add_development_dependency "mysql2", '~> 0.3.10'
-  s.add_development_dependency "mysql", '~> 2.8.1'
+  s.add_development_dependency "rspec", '~> 2.14'
+  s.add_development_dependency "travis", '~> 1.8'
+  s.add_development_dependency "rails", '~> 3.2.0'
+  s.add_development_dependency "mysql2", '~> 0.3.0'
+  s.add_development_dependency "mysql", '~> 2.9.0'
   s.add_development_dependency "pg", '~> 0.11'
   s.add_development_dependency "sqlite3", '~> 1.3.6'
   s.add_development_dependency "guard"
