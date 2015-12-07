@@ -7,7 +7,7 @@ in MySQL and PostgreSQL.
 
 ### Requirements
 
-rails-bigint-pk has been tested with rails 4.2.0, which at the time of writing
+rails-bigint-pk has been tested with rails 4.2.5, which at the time of writing
 is the latest patch version for 4.2.  If you use a higher patch version, we
 recommend that you run the test suite against your version of rails and activerecord.
 
